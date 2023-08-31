@@ -1,4 +1,4 @@
-exports.bandList = async (req, res) => {
+exports.listByBrand = async (req, res) => {
   try {
     res.status(200).json({
       success: true,
@@ -9,7 +9,7 @@ exports.bandList = async (req, res) => {
   }
 };
 
-exports.categoryList = async (req, res) => {
+exports.listByCategory = async (req, res) => {
   try {
     res.status(200).json({
       success: true,
