@@ -11,9 +11,11 @@ exports.createProfile = async (req, res) => {
 
 exports.ViewProfile = async (req, res) => {
   try {
+    const email = req.headers["id"];
     res.status(200).json({
       success: true,
       message: "View Profile",
+      data: email,
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

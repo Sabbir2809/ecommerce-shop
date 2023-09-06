@@ -30,6 +30,7 @@ const {
   paymentCancel,
   paymentIPN,
 } = require("../controllers/InvoiceController");
+const authVerifyMiddleware = require("../middleware/authVerifyMiddleware");
 
 // Routing Endpoints: brand, category
 router.get("/brand", brandList);
@@ -52,13 +53,13 @@ router.get("/create-cart-item", createCartItem);
 router.get("/remove-cart-item", removeCartItem);
 
 // Routing Endpoints: authentication
-router.post("/login", login);
-router.post("/login-verify", loginVerify);
+router.post("/user-login/:email", login);
+router.post("/user-login-verify/:email/:otp", loginVerify);
 router.post("/logout", logout);
 
 // Routing Endpoints: profile
 router.post("/create-profile", createProfile);
-router.get("/view-profile", ViewProfile);
+router.get("/view-profile", authVerifyMiddleware, ViewProfile);
 router.put("/update-profile", updateProfile);
 
 // Routing Endpoints: Invoice
