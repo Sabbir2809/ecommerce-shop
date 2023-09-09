@@ -1,5 +1,4 @@
 // Dependencies
-require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -7,6 +6,7 @@ const helmet = require("helmet");
 const hpp = require("hpp");
 const mongoSanitize = require("express-mongo-sanitize");
 const rateLimit = require("express-rate-limit");
+require("dotenv").config();
 const morgan = require("morgan");
 const router = require("./src/routes/api");
 
@@ -34,9 +34,9 @@ app.get("/", (req, res) => {
 app.use("/api/v1", router);
 
 // Front-End Tagging
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+// });
 
-// Exports
+// Exports app
 module.exports = app;

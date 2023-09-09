@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const { decodedToken } = require("../utility/Token");
 
 module.exports = async (req, res, next) => {
@@ -10,7 +9,7 @@ module.exports = async (req, res, next) => {
     }
     // decode token
     const decoded = await decodedToken(token, process.env.JWT_SECRET_KEY);
-
+    // decoded info
     const email = decoded["email"];
     const id = decoded["id"];
     req.headers.email = email;

@@ -1,45 +1,33 @@
+const {
+  productByRemark,
+  productByCategory,
+  productByBrand,
+  productBySlider,
+  productByKeyword,
+} = require("../services/ProductService");
+
+// :::::: list by brand ::::::
 exports.listByBrand = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Brand List",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await productByBrand(req);
+  res.status(200).json(result);
 };
 
+// :::::: list by category ::::::
 exports.listByCategory = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Category List",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await productByCategory(req);
+  res.status(200).json(result);
 };
 
+// :::::: list by slider ::::::
 exports.listBySlider = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "List By Slider",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await productBySlider(req);
+  res.status(200).json(result);
 };
 
+// :::::: list by remark ::::::
 exports.listByRemark = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "List By Remark Product",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await productByRemark(req);
+  res.status(200).json(result);
 };
 
 exports.listBySmiler = async (req, res) => {
@@ -52,16 +40,10 @@ exports.listBySmiler = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
+// :::::: list by keyword ::::::
 exports.listByKeyword = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "List By Keyword",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await productByKeyword(req);
+  res.status(200).json(result);
 };
 
 exports.productDetailsById = async (req, res) => {

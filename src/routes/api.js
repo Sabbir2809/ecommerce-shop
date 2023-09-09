@@ -32,17 +32,17 @@ const {
 } = require("../controllers/InvoiceController");
 const authVerifyMiddleware = require("../middleware/authVerifyMiddleware");
 
-// Routing Endpoints: brand, category
-router.get("/brand", brandList);
-router.get("/category", categoryList);
+// API Endpoints: brand, category
+router.get("/brands", brandList);
+router.get("/categories", categoryList);
 
-// Routing Endpoints: Product
-router.get("/list-by-brand", listByBrand);
-router.get("/list-by-category", listByCategory);
+// API Endpoints: Products
+router.get("/list-by-brand/:brand_id", listByBrand);
+router.get("/list-by-category/:category_id", listByCategory);
 router.get("/list-by-slider", listBySlider);
-router.get("/list-by-remark", listByRemark);
+router.get("/list-by-remark/:remark", listByRemark);
 router.get("/list-by-smiler", listBySmiler);
-router.get("/list-by-keyword", listByKeyword);
+router.get("/list-by-keyword/:keyword", listByKeyword);
 router.get("/product-details", productDetailsById);
 router.get("/product-review", productReview);
 router.get("/wish-list", wishList);
@@ -52,17 +52,17 @@ router.get("/cart-list", cartList);
 router.get("/create-cart-item", createCartItem);
 router.get("/remove-cart-item", removeCartItem);
 
-// Routing Endpoints: authentication
+// API Endpoints: User
 router.post("/user-login/:email", login);
 router.post("/user-login-verify/:email/:otp", loginVerify);
 router.post("/logout", logout);
 
-// Routing Endpoints: profile
-router.post("/create-profile", createProfile);
+// API Endpoints: profile
+router.post("/create-profile", authVerifyMiddleware, createProfile);
 router.get("/view-profile", authVerifyMiddleware, ViewProfile);
-router.put("/update-profile", updateProfile);
+router.put("/update-profile", authVerifyMiddleware, updateProfile);
 
-// Routing Endpoints: Invoice
+// API Endpoints: Invoice
 router.get("/invoice-create", invoiceCreate);
 router.get("/invoice-list", invoiceList);
 router.get("/invoice-product-list", invoiceProductList);

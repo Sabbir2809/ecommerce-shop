@@ -1,23 +1,15 @@
-const { sendOTP, userVerify } = require("../services/UserService");
+const { userSendOTP, userVerify } = require("../services/UserService");
 
-// user login
+// :::::: user login ::::::
 exports.login = async (req, res) => {
-  try {
-    const result = await sendOTP(req);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await userSendOTP(req);
+  res.status(200).json(result);
 };
 
-// user login verify
+// :::::: user login verify ::::::
 exports.loginVerify = async (req, res) => {
-  try {
-    const result = await userVerify(req);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await userVerify(req);
+  res.status(200).json(result);
 };
 
 exports.logout = async (req, res) => {
