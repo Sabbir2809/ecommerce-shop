@@ -5,6 +5,7 @@ const {
   productBySlider,
   productByKeyword,
 } = require("../services/ProductService");
+const { createWish, removeWish, wish } = require("../services/WishService");
 
 // :::::: list by brand ::::::
 exports.listByBrand = async (req, res) => {
@@ -68,37 +69,22 @@ exports.productReview = async (req, res) => {
   }
 };
 
-exports.wishList = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Wish List",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
+// :::::: Create Wish List ::::::
 exports.createWishItem = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Create Wish Item",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await createWish(req);
+  res.status(200).json(result);
 };
 
+// :::::: Remove Wish List ::::::
 exports.removeWishItem = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Remove Wish Item",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await removeWish(req);
+  res.status(200).json(result);
+};
+
+// :::::: Wish List ::::::
+exports.wishList = async (req, res) => {
+  const result = await wish(req);
+  res.status(200).json(result);
 };
 
 exports.cartList = async (req, res) => {
