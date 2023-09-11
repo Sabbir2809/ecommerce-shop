@@ -5,8 +5,8 @@ const invoiceSchema = new mongoose.Schema(
   {
     user_id: { type: mongoose.Schema.Types.ObjectId, required: true },
 
-    total: { type: String, required: true, trim: true },
-    vat: { type: String, required: true, trim: true },
+    // total: { type: String, required: true, trim: true },
+    // vat: { type: String, required: true, trim: true },
     payable: { type: String, required: true, trim: true },
     cus_details: { type: String, required: true, trim: true },
     ship_details: { type: String, required: true, trim: true },

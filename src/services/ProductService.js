@@ -18,7 +18,7 @@ const unwindCategoryStage = { $unwind: "$category" };
 
 // projection
 const projectionStage = {
-  $project: { "category._id": 0, "brand._id": 0, category_id: 0, brand_id: 0, remark: 0 },
+  $project: { "category._id": 0, "brand._id": 0, category_id: 0, brand_id: 0 },
 };
 
 // :::::: All Brands ::::::
@@ -123,6 +123,34 @@ exports.productByRemark = async (req) => {
     ]);
 
     return { status: true, message: "Remark Product", data: data };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
+// :::::: Product By Smiler ::::::
+exports.productBySmiler = async (req) => {
+  try {
+    const category_id = new mongoose.Types.ObjectId(req.params.category_id);
+
+    // matching stage
+    const matchingStage = { $match: { category_id } };
+
+    // limit
+    const limit = { $limit: 10 };
+
+    // aggregation
+    const data = await ProductModel.aggregate([
+      matchingStage,
+      limit,
+      joinStage1,
+      joinStage2,
+      unwindBrandStage,
+      unwindCategoryStage,
+      projectionStage,
+    ]);
+
+    return { status: true, message: "Smiler Product", data: data };
   } catch (error) {
     return { status: false, error: error.message };
   }

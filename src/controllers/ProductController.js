@@ -1,9 +1,11 @@
+const { Cart, createCart, removeCart } = require("../services/CartService");
 const {
   productByRemark,
   productByCategory,
   productByBrand,
   productBySlider,
   productByKeyword,
+  productBySmiler,
 } = require("../services/ProductService");
 const { createWish, removeWish, wish } = require("../services/WishService");
 
@@ -31,16 +33,12 @@ exports.listByRemark = async (req, res) => {
   res.status(200).json(result);
 };
 
+// :::::: list by Smiler ::::::
 exports.listBySmiler = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "List By Smiler Product",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await productBySmiler(req);
+  res.status(200).json(result);
 };
+
 // :::::: list by keyword ::::::
 exports.listByKeyword = async (req, res) => {
   const result = await productByKeyword(req);
@@ -87,35 +85,20 @@ exports.wishList = async (req, res) => {
   res.status(200).json(result);
 };
 
-exports.cartList = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Cart List",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
+// :::::: Create Cart Item ::::::
 exports.createCartItem = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Create Cart Item",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await createCart(req);
+  res.status(200).json(result);
 };
 
+// :::::: Remove Cart Item ::::::
 exports.removeCartItem = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Remove Cart Item",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await removeCart(req);
+  res.status(200).json(result);
+};
+
+// :::::: Cart List ::::::
+exports.cartList = async (req, res) => {
+  const result = await Cart(req);
+  res.status(200).json(result);
 };

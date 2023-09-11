@@ -41,16 +41,16 @@ router.get("/list-by-brand/:brand_id", listByBrand);
 router.get("/list-by-category/:category_id", listByCategory);
 router.get("/list-by-slider", listBySlider);
 router.get("/list-by-remark/:remark", listByRemark);
-router.get("/list-by-smiler", listBySmiler);
+router.get("/list-by-smiler/:category_id", listBySmiler);
 router.get("/list-by-keyword/:keyword", listByKeyword);
 router.get("/product-details", productDetailsById);
 router.get("/product-review", productReview);
 router.get("/wish-list", authVerifyMiddleware, wishList);
 router.post("/create-wish-item", authVerifyMiddleware, createWishItem);
 router.delete("/remove-wish-item", authVerifyMiddleware, removeWishItem);
-router.get("/cart-list", cartList);
-router.get("/create-cart-item", createCartItem);
-router.get("/remove-cart-item", removeCartItem);
+router.get("/cart-list", authVerifyMiddleware, cartList);
+router.post("/create-cart-item", authVerifyMiddleware, createCartItem);
+router.delete("/remove-cart-item", authVerifyMiddleware, removeCartItem);
 
 // API Endpoints: User
 router.post("/user-login/:email", login);
@@ -63,9 +63,11 @@ router.get("/view-profile", authVerifyMiddleware, ViewProfile);
 router.put("/update-profile", authVerifyMiddleware, updateProfile);
 
 // API Endpoints: Invoice
-router.get("/invoice-create", invoiceCreate);
-router.get("/invoice-list", invoiceList);
-router.get("/invoice-product-list", invoiceProductList);
+router.get("/invoice-create", authVerifyMiddleware, invoiceCreate);
+router.get("/invoice-list", authVerifyMiddleware, invoiceList);
+router.get("/invoice-product-list", authVerifyMiddleware, invoiceProductList);
+
+// API Endpoints: Payment status
 router.get("/payment-success", paymentSuccess);
 router.get("/payment-fail", paymentFail);
 router.get("/payment-cancel", paymentCancel);

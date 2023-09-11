@@ -1,40 +1,52 @@
 const mongoose = require("mongoose");
-const WishModel = require("../models/WishModel");
+const CartModel = require("../models/CartModel");
+const ProductModel = require("../models/ProductModel");
 
-// :::::: Crate Wish ::::::
-exports.createWish = async (req) => {
+// :::::: Crate Cart ::::::
+exports.createCart = async (req) => {
   try {
     const user_id = req.headers.id;
     let reqBody = req.body;
-    reqBody.user_id = user_id;
+    let product_id = reqBody.product_id;
 
-    await WishModel.updateOne(
+    // price calculation
+    const product = await ProductModel.findOne({ _id: product_id });
+    let price = product.price;
+    if (product.discount) {
+      price = product.discount_price;
+    }
+    const totalPrice = price * reqBody.qty;
+
+    reqBody.user_id = user_id;
+    reqBody.price = totalPrice;
+
+    await CartModel.updateOne(
       { user_id, product_id: reqBody.product_id },
       { $set: reqBody },
       { upsert: true }
     );
-    return { status: true, message: "Create Wish List" };
+    return { status: true, message: "Create Cart List" };
   } catch (error) {
     return { status: false, error: error.message };
   }
 };
 
-// :::::: Remove Wish ::::::
-exports.removeWish = async (req) => {
+// :::::: Remove Cart ::::::
+exports.removeCart = async (req) => {
   try {
     const user_id = req.headers.id;
     let reqBody = req.body;
     reqBody.user_id = user_id;
 
-    await WishModel.deleteOne({ user_id, product_id: reqBody.product_id });
-    return { status: true, message: "Remove Wish List" };
+    await CartModel.deleteOne({ user_id, product_id: reqBody.product_id });
+    return { status: true, message: "Remove Cart List" };
   } catch (error) {
     return { status: false, error: error.message };
   }
 };
 
-// :::::: Wish ::::::
-exports.wish = async (req) => {
+// :::::: Cart ::::::
+exports.Cart = async (req) => {
   try {
     const user_id = new mongoose.Types.ObjectId(req.headers.id);
 
@@ -82,7 +94,7 @@ exports.wish = async (req) => {
       },
     };
 
-    const data = await WishModel.aggregate([
+    const data = await CartModel.aggregate([
       matchStage,
       joinStageProduct,
       unwindProductStage,
@@ -92,7 +104,7 @@ exports.wish = async (req) => {
       unwindCategoryStage,
       project,
     ]);
-    return { status: true, message: "Wish", data: data };
+    return { status: true, message: "Cart", data: data };
   } catch (error) {
     return { status: false, error: error.message };
   }
