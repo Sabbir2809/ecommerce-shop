@@ -22,7 +22,7 @@ const limiter = rateLimit({ windowMs: 1 * 60 * 1000, max: 30 });
 app.use(limiter);
 app.use(express.json());
 app.use(express.static("frontend/dist"));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 // Health API
