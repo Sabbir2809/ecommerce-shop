@@ -45,10 +45,10 @@ router.get("/invoice-list", authVerifyMiddleware, InvoiceController.invoiceList)
 router.get("/invoice-product-list", authVerifyMiddleware, InvoiceController.invoiceProductList);
 
 // API Endpoints: Payment status
-router.get("/payment-success", InvoiceController.paymentSuccess);
-router.get("/payment-fail", InvoiceController.paymentFail);
-router.get("/payment-cancel", InvoiceController.paymentCancel);
-router.get("/payment-ipn", InvoiceController.paymentIPN);
+router.post("/payment-success/:tran_id", InvoiceController.paymentSuccess);
+router.post("/payment-fail/:tran_id", InvoiceController.paymentFail);
+router.post("/payment-cancel/:tran_id", InvoiceController.paymentCancel);
+router.post("/payment-ipn/:tran_id", InvoiceController.paymentIPN);
 
 // Exports
 module.exports = router;

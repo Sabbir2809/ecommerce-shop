@@ -68,10 +68,11 @@ exports.calculateInvoice = async (req) => {
     form.append("currency", paymentSetting[0].currency);
     form.append("tran_id", tran_id);
 
-    form.append("success_url", paymentSetting[0].success_url);
-    form.append("fail_url", paymentSetting[0].fail_url);
-    form.append("cancel_url", paymentSetting[0].cancel_url);
-    form.append("ipn_url", paymentSetting[0].ipn_url);
+    form.append("success_url", `${paymentSetting[0].success_url}/${tran_id}`);
+    form.append("fail_url", `${paymentSetting[0].fail_url}/${tran_id}`);
+    form.append("cancel_url", `${paymentSetting[0].cancel_url}/${tran_id}`);
+    form.append("ipn_url", `${paymentSetting[0].ipn_url}/${tran_id}`);
+    form.append("init_url", paymentSetting[0].init_url);
 
     form.append("product_name", "DEMO");
     form.append("product_category", "DEMO");
@@ -98,9 +99,54 @@ exports.calculateInvoice = async (req) => {
     form.append("ship_postcode", profile[0].ship_postcode);
     form.append("ship_country", profile[0].ship_country);
 
-    const SSL = await axios.post("https://sandbox.sslcommerz.com/gwprocess/v4/api.php", form);
+    const SSL = await axios.post(paymentSetting[0].init_url, form);
 
     return { status: true, data: SSL.data };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
+// :::::: payment Success Service ::::::
+exports.paymentSuccessService = async (req, res) => {
+  try {
+    const tran_id = req.params.tran_id;
+    await InvoiceModel.updateOne({ tran_id: tran_id }, { payment_status: "success" });
+    return { status: true, message: "Payment Success" };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
+// :::::: payment Cancel Service ::::::
+exports.paymentCancelService = async (req, res) => {
+  try {
+    const tran_id = req.params.tran_id;
+    await InvoiceModel.updateOne({ tran_id: tran_id }, { payment_status: "cancel" });
+    return { status: true, message: "Payment Cancel" };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
+// :::::: payment ail Service ::::::
+exports.paymentFailService = async (req, res) => {
+  try {
+    const tran_id = req.params.tran_id;
+    await InvoiceModel.updateOne({ tran_id: tran_id }, { payment_status: "fail" });
+    return { status: true, message: "Payment Fail" };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
+// :::::: payment IPN Service ::::::
+exports.paymentIPNService = async (req, res) => {
+  try {
+    const tran_id = req.params.tran_id;
+    const status = req.body.status;
+    await InvoiceModel.updateOne({ tran_id: tran_id }, { payment_status: status });
+    return { status: true, message: status };
   } catch (error) {
     return { status: false, error: error.message };
   }

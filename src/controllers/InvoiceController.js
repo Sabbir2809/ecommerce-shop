@@ -1,4 +1,10 @@
-const { calculateInvoice } = require("../services/InvoiceService");
+const {
+  calculateInvoice,
+  paymentSuccessService,
+  paymentFailService,
+  paymentCancelService,
+  paymentIPNService,
+} = require("../services/InvoiceService");
 
 // :::::: Invoice Create ::::::
 exports.invoiceCreate = async (req, res) => {
@@ -7,66 +13,35 @@ exports.invoiceCreate = async (req, res) => {
 };
 
 exports.invoiceList = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Invoice List",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await req;
+  res.status(200).json(result);
 };
 
 exports.invoiceProductList = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Invoice Product List",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await req;
+  res.status(200).json(result);
 };
 
+// :::::: Payment Success ::::::
 exports.paymentSuccess = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Payment Success",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await paymentSuccessService(req);
+  res.status(200).json(result);
 };
 
-exports.paymentFail = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Payment Fail",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
+// :::::: Payment Cancel ::::::
 exports.paymentCancel = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Payment Cancel",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await paymentCancelService(req);
+  res.status(200).json(result);
 };
+
+// :::::: Payment Fail ::::::
+exports.paymentFail = async (req, res) => {
+  const result = await paymentFailService(req);
+  res.status(200).json(result);
+};
+
+// :::::: Payment IPN ::::::
 exports.paymentIPN = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Payment IPN",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await paymentIPNService(req);
+  res.status(200).json(result);
 };
