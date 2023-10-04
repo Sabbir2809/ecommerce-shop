@@ -1,7 +1,7 @@
 const CustomerProfileModel = require("../models/CustomerProfileModel");
 const UserModel = require("../models/UserModel");
-const { sendEmailWithNodeMailer } = require("../utility/SendEmail");
-const { encodedToken } = require("../utility/Token");
+const { EncodedToken } = require("../utility/Token");
+const { sendEmailWithNodeMailer } = require("../utility/sendEmailWithNodeMailer");
 
 // :::::: Send OTP ::::::
 exports.userSendOTP = async (req) => {
@@ -40,7 +40,7 @@ exports.userVerify = async (req) => {
       if (total === 1) {
         const user_id = await UserModel.find({ email, otp }).select("_id");
         // encoded jwt token
-        const token = encodedToken(email, user_id[0]["_id"].toString());
+        const token = EncodedToken(email, user_id[0]["_id"].toString());
         // update OTP
         await UserModel.updateOne({ email }, { $set: { otp: "0" } }, { upsert: true });
         return { status: true, message: "Valid OTP", token: token };

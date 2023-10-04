@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema(
     discount_price: { type: String, trim: true },
     image: { type: String, required: true, trim: true },
     stock: { type: String, trim: true },
-    start: { type: Boolean, required: true, default: true, trim: true },
+    star: { type: Boolean, required: true, default: true, trim: true },
     remark: {
       type: String,
       required: true,
