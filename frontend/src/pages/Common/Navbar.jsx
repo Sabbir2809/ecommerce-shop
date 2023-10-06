@@ -1,5 +1,3 @@
-// import { AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
-// import { MdAccountCircle } from "react-icons/md";
 import logo from "./../../assets/images/plainb-logo.svg";
 const Navbar = () => {
   return (
@@ -41,38 +39,38 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
-        </div>
-        <div className=" d-lg-flex" action="">
-          <div className="input-group">
-            <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-dark" type="submit">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                style={{ width: 24, height: 24 }}>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
+          <div className="d-lg-flex ms-auto" action="">
+            <div className="input-group">
+              <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
+              <button className="btn btn-outline-dark" type="submit">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  style={{ width: 24, height: 24 }}>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+              <button type="button" className="btn ms-3 btn-outline-success position-relative">
+                <i className="bi bi-bag"></i>
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                  02
+                </span>
+              </button>
+              <button type="button" className="btn ms-3 btn-dark d-flex">
+                <i className="bi bi-heart"></i>
+              </button>
+              <button type="button" className="btn ms-3 btn-success d-flex">
+                <i className="bi mx-1 bi-person"></i> Account
+              </button>
+            </div>
           </div>
-          <button type="button" className="btn ms-3 btn-outline-success position-relative">
-            <i className="bi bi-bag"></i>
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-              02
-            </span>
-          </button>
-          <button type="button" className="btn ms-3 btn-dark d-flex">
-            <i className="bi bi-heart"></i>
-          </button>
-          <button type="button" className="btn ms-3 btn-success d-flex">
-            <i className="bi mx-1 bi-person"></i> Account
-          </button>
         </div>
       </div>
     </nav>
