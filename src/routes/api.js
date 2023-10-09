@@ -8,10 +8,13 @@ const ProfileController = require("../controllers/ProfileController");
 const ProductController = require("../controllers/ProductController");
 const InvoiceController = require("../controllers/InvoiceController");
 const authVerifyMiddleware = require("../middleware/authVerifyMiddleware");
+const FeatureController = require("../controllers/FeatureController");
 
 // API Endpoints: brand, category
 router.get("/brands", BrandController.brandList);
 router.get("/categories", CategoryController.categoryList);
+
+router.get("/features", FeatureController.featureList);
 
 // API Endpoints: Products
 router.get("/list-by-brand/:brand_id", ProductController.listByBrand);

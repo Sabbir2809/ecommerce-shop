@@ -25,7 +25,7 @@ const Brands = () => {
             <div key={brand._id} className="col-6 col-lg-8r text-center col-md-8r p-2">
               <Link to="/" className="card h-100 rounded-3 bg-light">
                 <div className="card-body">
-                  <img className="w-75 h-25" src={brand.brandImg} alt={brand.brandName} />
+                  <img className="img-fluid w-50 h-50" src={brand.brandImg} alt={brand.brandName} />
                   <p className="bodySmall mt-3">{brand.brandName}</p>
                 </div>
               </Link>

@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const hpp = require("hpp");
 const mongoSanitize = require("express-mongo-sanitize");
 const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 // import router file
 const router = require("./src/routes/api");
@@ -22,12 +23,8 @@ const limiter = rateLimit({ windowMs: 1 * 60 * 1000, max: 60 });
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static("frontend/dist"));
-
-// API Health Check
-app.get("/", (req, res) => {
-  res.status(200).send("E-commerce Shop: API, All is Well");
-});
 
 // router:
 app.use("/api/v1", router);
