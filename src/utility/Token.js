@@ -7,5 +7,9 @@ exports.EncodedToken = (email, user_id) => {
 
 // decoded
 exports.DecodedToken = (token) => {
-  return jwt.verify(token, process.env.JWT_SECRET_KEY);
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET_KEY);
+  } catch (error) {
+    return null;
+  }
 };

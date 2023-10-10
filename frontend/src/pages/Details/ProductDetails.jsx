@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PRODUCT_DETAILS_API_REQUEST } from "../../services/API_REQUEST";
+import {
+  CREATE_CART_LIST_API_REQUEST,
+  CREATE_WISH_LIST_API_REQUEST,
+  PRODUCT_DETAILS_API_REQUEST,
+} from "../../services/API_REQUEST";
+import { ErrorToast, SuccessToast } from "../../utility/FormHelper";
 import Brands from "../Home/Brands";
 import ProductGallery from "./ProductGallery";
 import ProductSpecification from "./ProductSpecification";
@@ -14,32 +19,18 @@ const ProductDetails = () => {
   const [color, setColor] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    (async () => {
-      let result = await PRODUCT_DETAILS_API_REQUEST(id);
-      setData(result);
-
-      // color array
-      const colorArray = result[0]["details"]["color"].split(",");
-      setColor(colorArray);
-
-      // size array
-      const sizeArray = result[0]["details"]["size"].split(",");
-      setSize(sizeArray);
-    })();
-  }, []);
-
-  const [cartData, setCartData] = useState({
+  const [dataAddToCart, setDataAddToCart] = useState({
     product_id: id,
+    price: data[0]?.price,
     qty: 1,
-    color: "",
     size: "",
+    color: "",
   });
 
   // cart data
   const inputOnChange = (size, value) => {
-    setCartData((cartData) => ({
-      ...cartData,
+    setDataAddToCart((prevDataAddToCart) => ({
+      ...prevDataAddToCart,
       [size]: value,
     }));
   };
@@ -56,11 +47,47 @@ const ProductDetails = () => {
     }
   };
 
-  // Add to Cart
-  const AddCart = async () => {};
-
   // Add to wish
-  const AddWish = async () => {};
+  const handleAddToWish = async () => {
+    const response = await CREATE_WISH_LIST_API_REQUEST(id);
+    if (response.status) {
+      SuccessToast(response.message);
+    } else {
+      ErrorToast(response.message);
+    }
+  };
+
+  // Add to Cart
+  const handleAddToCart = async (event) => {
+    event.preventDefault();
+    if (dataAddToCart.color.length === 0) {
+      ErrorToast("Color is Required");
+    } else if (dataAddToCart.size.length === 0) {
+      ErrorToast("Size is Required");
+    } else {
+      const response = await CREATE_CART_LIST_API_REQUEST(dataAddToCart);
+      if (response.status) {
+        SuccessToast(response.message);
+      } else {
+        ErrorToast(response.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      let result = await PRODUCT_DETAILS_API_REQUEST(id);
+      setData(result);
+
+      // color array
+      const colorArray = result[0]["details"]["color"].split(",");
+      setColor(colorArray);
+
+      // size array
+      const sizeArray = result[0]["details"]["size"].split(",");
+      setSize(sizeArray);
+    })();
+  }, []);
 
   return (
     <>
@@ -88,7 +115,7 @@ const ProductDetails = () => {
               <div className="col-4 p-2">
                 <label className="bodySmal">Size</label>
                 <select
-                  value={cartData.size}
+                  value={dataAddToCart.size}
                   onChange={(event) => inputOnChange("size", event.target.value)}
                   className="form-control my-2 form-select">
                   <option>Choose Size</option>
@@ -103,7 +130,7 @@ const ProductDetails = () => {
               <div className="col-4 p-2">
                 <label className="bodySmal">Color</label>
                 <select
-                  value={cartData.color}
+                  value={dataAddToCart.color}
                   onChange={(event) => inputOnChange("color", event.target.value)}
                   className="form-control my-2 form-select">
                   <option>Choose Color</option>
@@ -125,8 +152,8 @@ const ProductDetails = () => {
                     -
                   </button>
                   <input
-                    onChange={(e) => {
-                      inputOnChange("qty", e.target.value);
+                    onChange={(event) => {
+                      inputOnChange("qty", event.target.value);
                     }}
                     type="text"
                     value={quantity}
@@ -139,12 +166,12 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="col-4  p-2">
-                <button onClick={AddCart} className="btn w-100 btn-success">
+                <button onClick={handleAddToCart} className="btn w-100 btn-success">
                   Add to Cart
                 </button>
               </div>
               <div className="col-4  p-2">
-                <button onClick={AddWish} className="btn w-100 btn-success">
+                <button onClick={handleAddToWish} className="btn w-100 btn-success">
                   Add to Wish
                 </button>
               </div>

@@ -6,7 +6,7 @@ const Slider = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await GET_LIST_API_REQUEST("/list-by-slider");
+      const response = await GET_LIST_API_REQUEST("list-by-slider");
       setSliders(response);
     })();
   }, []);

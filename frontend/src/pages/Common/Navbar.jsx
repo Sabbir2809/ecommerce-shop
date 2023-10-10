@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "./../../assets/images/plainb-logo.svg";
 const Navbar = () => {
   return (
@@ -20,24 +20,9 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="nav06">
           <ul className="navbar-nav mt-3 mt-lg-0 mb-3 mb-lg-0 ms-lg-3">
             <li className="nav-item me-4">
-              <a className="nav-link" href="#">
-                About
-              </a>
-            </li>
-            <li className="nav-item me-4">
-              <a className="nav-link" href="#">
-                Company
-              </a>
-            </li>
-            <li className="nav-item me-4">
-              <a className="nav-link" href="#">
-                Services
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Testimonials
-              </a>
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
             </li>
           </ul>
           <div className="d-lg-flex ms-auto" action="">

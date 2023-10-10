@@ -23,27 +23,28 @@ router.get("/list-by-slider", ProductController.listBySlider);
 router.get("/list-by-remark/:remark", ProductController.listByRemark);
 // router.get("/list-by-smiler/:category_id", ProductController.listBySmiler);
 router.get("/list-by-keyword/:keyword", ProductController.listByKeyword);
-
 router.get("/product-details/:product_id", ProductController.productDetailsById);
 router.get("/product-review", ProductController.productReview); // Todo
 
-router.get("/wish-list", authVerifyMiddleware, ProductController.wishList);
-router.post("/create-wish-item", authVerifyMiddleware, ProductController.createWishItem);
-router.delete("/remove-wish-item", authVerifyMiddleware, ProductController.removeWishItem);
-
-router.get("/cart-list", authVerifyMiddleware, ProductController.cartList);
-router.post("/create-cart-item", authVerifyMiddleware, ProductController.createCartItem);
-router.delete("/remove-cart-item", authVerifyMiddleware, ProductController.removeCartItem);
-
 // API Endpoints: User
-router.post("/user-login/:email", UserController.login);
-router.post("/user-login-verify/:email/:otp", UserController.loginVerify);
-router.post("/logout", UserController.logout); // Todo
+router.get("/user-login/:email", UserController.login);
+router.get("/user-login-verify/:email/:otp", UserController.loginVerify);
+router.get("/logout", UserController.logout); // Todo
 
 // API Endpoints: profile
 router.post("/create-profile", authVerifyMiddleware, ProfileController.createProfile);
 router.get("/view-profile", authVerifyMiddleware, ProfileController.ViewProfile);
 router.put("/update-profile", authVerifyMiddleware, ProfileController.updateProfile);
+
+// API Endpoints: Wish
+router.get("/wish-list", authVerifyMiddleware, ProductController.wishList);
+router.post("/create-wish-item", authVerifyMiddleware, ProductController.createWishItem);
+router.delete("/remove-wish-item", authVerifyMiddleware, ProductController.removeWishItem);
+
+// API Endpoints: Cart
+router.get("/cart-list", authVerifyMiddleware, ProductController.cartList);
+router.post("/create-cart-item", authVerifyMiddleware, ProductController.createCartItem);
+router.delete("/remove-cart-item", authVerifyMiddleware, ProductController.removeCartItem);
 
 // API Endpoints: Invoice
 router.get("/invoice-create", authVerifyMiddleware, InvoiceController.invoiceCreate);
