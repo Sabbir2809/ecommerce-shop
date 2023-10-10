@@ -21,13 +21,16 @@ router.get("/list-by-brand/:brand_id", ProductController.listByBrand);
 router.get("/list-by-category/:category_id", ProductController.listByCategory);
 router.get("/list-by-slider", ProductController.listBySlider);
 router.get("/list-by-remark/:remark", ProductController.listByRemark);
-router.get("/list-by-smiler/:category_id", ProductController.listBySmiler);
+// router.get("/list-by-smiler/:category_id", ProductController.listBySmiler);
 router.get("/list-by-keyword/:keyword", ProductController.listByKeyword);
-router.get("/product-details", ProductController.productDetailsById); // Todo
+
+router.get("/product-details/:product_id", ProductController.productDetailsById);
 router.get("/product-review", ProductController.productReview); // Todo
+
 router.get("/wish-list", authVerifyMiddleware, ProductController.wishList);
 router.post("/create-wish-item", authVerifyMiddleware, ProductController.createWishItem);
 router.delete("/remove-wish-item", authVerifyMiddleware, ProductController.removeWishItem);
+
 router.get("/cart-list", authVerifyMiddleware, ProductController.cartList);
 router.post("/create-cart-item", authVerifyMiddleware, ProductController.createCartItem);
 router.delete("/remove-cart-item", authVerifyMiddleware, ProductController.removeCartItem);

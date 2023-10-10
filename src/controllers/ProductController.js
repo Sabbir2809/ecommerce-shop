@@ -6,6 +6,7 @@ const {
   productBySlider,
   productByKeyword,
   productBySmiler,
+  detailsById,
 } = require("../services/ProductService");
 const { createWish, removeWish, wish } = require("../services/WishService");
 
@@ -34,10 +35,10 @@ exports.listByRemark = async (req, res) => {
 };
 
 // :::::: list by Smiler ::::::
-exports.listBySmiler = async (req, res) => {
-  const result = await productBySmiler(req);
-  res.status(200).json(result);
-};
+// exports.listBySmiler = async (req, res) => {
+//   const result = await productBySmiler(req);
+//   res.status(200).json(result);
+// };
 
 // :::::: list by keyword ::::::
 exports.listByKeyword = async (req, res) => {
@@ -45,15 +46,10 @@ exports.listByKeyword = async (req, res) => {
   res.status(200).json(result);
 };
 
+// :::::: product Details By Id ::::::
 exports.productDetailsById = async (req, res) => {
-  try {
-    res.status(200).json({
-      success: true,
-      message: "Product Details By Id",
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  const result = await detailsById(req);
+  res.status(200).json(result);
 };
 
 exports.productReview = async (req, res) => {

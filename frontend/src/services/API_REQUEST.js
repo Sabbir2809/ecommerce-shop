@@ -26,3 +26,15 @@ export const PRODUCT_LIST_BY_REMARK_API_REQUEST = async (remark) => {
     return [];
   }
 };
+
+// ::::::::: API: Brands and Categories List :::::::::
+export const PRODUCT_DETAILS_API_REQUEST = async (id) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/product-details/${id}`);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    return [];
+  }
+};

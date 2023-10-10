@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import logo from "./../../assets/images/plainb-logo.svg";
 const Navbar = () => {
   return (
     <nav className="navbar shadow-sm sticky-top bg-white navbar-expand-lg navbar-light py-3">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <Link to={"/"} className="navbar-brand">
           <img className="img-fluid" src={logo} alt="" width="96px" />
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

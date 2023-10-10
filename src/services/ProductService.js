@@ -18,7 +18,7 @@ const unwindCategoryStage = { $unwind: "$category" };
 
 // projection
 const projectionStage = {
-  $project: { "category._id": 0, "brand._id": 0, category_id: 0, brand_id: 0 },
+  $project: { "category._id": 0, "brand._id": 0 },
 };
 
 // :::::: All Brands ::::::
@@ -71,7 +71,7 @@ exports.productByCategory = async (req) => {
     const category_id = new mongoose.Types.ObjectId(req.params.category_id);
 
     // matching stage
-    const matchingStage = { $match: { category_id } };
+    const matchingStage = { $match: { category_id: category_id } };
 
     // aggregation
     const data = await ProductModel.aggregate([
@@ -129,32 +129,32 @@ exports.productByRemark = async (req) => {
 };
 
 // :::::: Product By Smiler ::::::
-exports.productBySmiler = async (req) => {
-  try {
-    const category_id = new mongoose.Types.ObjectId(req.params.category_id);
+// exports.productBySmiler = async (req) => {
+//   try {
+//     const category_id = new mongoose.Types.ObjectId(req.params.category_id);
 
-    // matching stage
-    const matchingStage = { $match: { category_id } };
+//     // matching stage
+//     const matchingStage = { $match: { category_id: category_id } };
 
-    // limit
-    const limit = { $limit: 10 };
+//     // limit
+//     const limit = { $limit: 10 };
 
-    // aggregation
-    const data = await ProductModel.aggregate([
-      matchingStage,
-      limit,
-      joinStage1,
-      joinStage2,
-      unwindBrandStage,
-      unwindCategoryStage,
-      projectionStage,
-    ]);
+//     // aggregation
+//     const data = await ProductModel.aggregate([
+//       matchingStage,
+//       limit,
+//       joinStage1,
+//       joinStage2,
+//       unwindBrandStage,
+//       unwindCategoryStage,
+//       projectionStage,
+//     ]);
 
-    return { status: true, message: "Smiler Product", data: data };
-  } catch (error) {
-    return { status: false, error: error.message };
-  }
-};
+//     return { status: true, message: "Smiler Product", data: data };
+//   } catch (error) {
+//     return { status: false, error: error.message };
+//   }
+// };
 
 // :::::: Product By keyword ::::::
 exports.productByKeyword = async (req) => {
@@ -177,6 +177,53 @@ exports.productByKeyword = async (req) => {
     ]);
 
     return { status: true, message: "Remark Product", data: data };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
+// :::::: Product By keyword ::::::
+exports.detailsById = async (req) => {
+  try {
+    const product_id = new mongoose.Types.ObjectId(req.params.product_id);
+    // matching stage
+    const matchingStage = { $match: { _id: product_id } };
+    // join 3
+    const joinState3 = {
+      $lookup: {
+        from: "productDetails",
+        localField: "_id",
+        foreignField: "product_id",
+        as: "details",
+      },
+    };
+
+    // unwindDetailsStage
+    const unwindDetailsStage = { $unwind: "$details" };
+
+    // projection
+    const projection = {
+      $project: {
+        "details._id": 0,
+        "details.product_id": 0,
+        "category._id": 0,
+        "brand._id": 0,
+      },
+    };
+
+    // aggregation
+    const data = await ProductModel.aggregate([
+      matchingStage,
+      joinStage1,
+      joinStage2,
+      joinState3,
+      unwindBrandStage,
+      unwindCategoryStage,
+      unwindDetailsStage,
+      projection,
+    ]);
+
+    return { status: true, message: "Product Details", data: data };
   } catch (error) {
     return { status: false, error: error.message };
   }

@@ -44,7 +44,7 @@ const Products = () => {
               <div className="tab-content" id="pills-tabContent">
                 {/* New Remark  */}
                 <div
-                  className="tab-pane fade show"
+                  className="tab-pane fade show active"
                   id="pills-new"
                   role="tabpanel"
                   aria-labelledby="pills-home-tab"
@@ -58,7 +58,7 @@ const Products = () => {
 
                 {/* Trending Remark  */}
                 <div
-                  className="tab-pane fade show active"
+                  className="tab-pane fade show"
                   id="pills-trending"
                   role="tabpanel"
                   aria-labelledby="pills-home-tab"
