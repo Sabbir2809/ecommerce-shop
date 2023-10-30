@@ -26,7 +26,7 @@ exports.removeWish = async (req) => {
     let reqBody = req.body;
     reqBody.user_id = user_id;
 
-    await WishModel.deleteOne({ user_id, product_id: reqBody.product_id });
+    const data = await WishModel.deleteOne({ user_id, product_id: reqBody.product_id });
     return { status: true, message: "Remove Wish List" };
   } catch (error) {
     return { status: false, error: error.message };
@@ -68,15 +68,12 @@ exports.wish = async (req) => {
     // projection
     const project = {
       $project: {
-        product_id: 0,
         user_id: 0,
         createdAt: 0,
         updatedAt: 0,
         "product._id": 0,
         "product.brand_id": 0,
         "product.category_id": 0,
-        "product.remark": 0,
-        "product.discount": 0,
         "brand._id": 0,
         "category._id": 0,
       },

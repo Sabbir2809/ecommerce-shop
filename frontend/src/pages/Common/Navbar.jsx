@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "./../../assets/images/plainb-logo.svg";
+
 const Navbar = () => {
   return (
     <nav className="navbar shadow-sm sticky-top bg-white navbar-expand-lg navbar-light py-3">
@@ -49,9 +50,11 @@ const Navbar = () => {
                   02
                 </span>
               </button>
-              <button type="button" className="btn ms-3 btn-dark d-flex">
-                <i className="bi bi-heart"></i>
-              </button>
+              <Link to="/wish">
+                <button type="button" className="btn ms-3 btn-dark d-flex">
+                  <i className="bi bi-heart"></i>
+                </button>
+              </Link>
               <button type="button" className="btn ms-3 btn-success d-flex">
                 <i className="bi mx-1 bi-person"></i> Account
               </button>

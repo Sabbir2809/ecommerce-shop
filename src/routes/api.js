@@ -39,7 +39,7 @@ router.put("/update-profile", authVerifyMiddleware, ProfileController.updateProf
 // API Endpoints: Wish
 router.get("/wish-list", authVerifyMiddleware, ProductController.wishList);
 router.post("/create-wish-item", authVerifyMiddleware, ProductController.createWishItem);
-router.delete("/remove-wish-item", authVerifyMiddleware, ProductController.removeWishItem);
+router.post("/remove-wish-item", authVerifyMiddleware, ProductController.removeWishItem);
 
 // API Endpoints: Cart
 router.get("/cart-list", authVerifyMiddleware, ProductController.cartList);

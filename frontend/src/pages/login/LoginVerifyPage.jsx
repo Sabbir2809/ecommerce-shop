@@ -1,21 +1,24 @@
 import { useState } from "react";
 import ReactCodeInput from "react-code-input";
 import { useParams } from "react-router-dom";
+import Button from "../../components/Button";
 import { USER_LOGIN_VERIFY_API_REQUEST } from "../../services/API_REQUEST";
 import { ErrorToast, IsEmpty, SuccessToast } from "../../utility/FormHelper";
 
 const LoginVerifyPage = () => {
   const { email } = useParams();
   const [OTP, setOTP] = useState("");
+  const [btnLoader, setBtnLoader] = useState(false);
 
   const handleLoginVerify = async (event) => {
     event.preventDefault();
 
-    if (IsEmpty(email)) {
-      ErrorToast("Email is Required");
+    if (IsEmpty(OTP)) {
+      ErrorToast("Verification OTP is Required");
     } else {
+      setBtnLoader(true);
       const response = await USER_LOGIN_VERIFY_API_REQUEST(email, OTP);
-      console.log(response);
+      setBtnLoader(false);
       if (response.status === true) {
         SuccessToast(response.message);
         window.location.href = sessionStorage.getItem("last-location");
@@ -49,9 +52,12 @@ const LoginVerifyPage = () => {
             <div className="card-body text-center">
               <ReactCodeInput onChange={(value) => setOTP(value)} inputStyle={defaultInputStyle} fields={6} />
               <br />
-              <button onClick={handleLoginVerify} className="btn btn-success my-2 w-100">
-                Verify
-              </button>
+              <Button
+                onClick={handleLoginVerify}
+                isSubmit={btnLoader}
+                text="Verify"
+                className="btn btn-success w-100"
+              />
             </div>
           </div>
         </div>

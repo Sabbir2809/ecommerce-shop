@@ -32,7 +32,6 @@ export const PRODUCT_LIST_BY_REMARK_API_REQUEST = async (remark) => {
 export const PRODUCT_DETAILS_API_REQUEST = async (id) => {
   try {
     const { data } = await axios.get(`${BASE_URL}/api/v1/product-details/${id}`);
-    console.log(data);
     if (data.status) {
       return data.data;
     }
@@ -89,5 +88,55 @@ export const USER_LOGIN_VERIFY_API_REQUEST = async (email, otp) => {
     }
   } catch (error) {
     return false;
+  }
+};
+
+// ::::::::: API: Wish List :::::::::
+export const WISH_LIST_API_REQUEST = async () => {
+  try {
+    const data = await axios.get(`${BASE_URL}/api/v1/wish-list`);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    Unauthorized(error.response.status);
+  }
+};
+
+// ::::::::: API: Remove Wish List :::::::::
+export const REMOVE_WISH_LIST_API_REQUEST = async (id) => {
+  try {
+    const reqBody = { product_id: id };
+    const data = await axios.post(`${BASE_URL}/api/v1/remove-wish-item`, reqBody);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    Unauthorized(error.response.status);
+  }
+};
+
+// ::::::::: API: Cart List :::::::::
+export const CART_LIST_API_REQUEST = async () => {
+  try {
+    const data = await axios.get(`${BASE_URL}/api/v1/cart-list`);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    Unauthorized(error.response.status);
+  }
+};
+
+// ::::::::: API: Remove Cart List :::::::::
+export const REMOVE_CART_LIST_API_REQUEST = async (id) => {
+  try {
+    const reqBody = { product_id: id };
+    const data = await axios.delete(`${BASE_URL}/api/v1/remove-cart-item`, reqBody);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    Unauthorized(error.response.status);
   }
 };

@@ -1,12 +1,12 @@
 // Package Dependencies
 const express = require("express");
-// const path = require("path");
 const cors = require("cors");
 const helmet = require("helmet");
 const hpp = require("hpp");
 const mongoSanitize = require("express-mongo-sanitize");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 require("dotenv").config();
 // import router file
 const router = require("./src/routes/api");
@@ -24,15 +24,15 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-// app.use(express.static("frontend/dist"));
+app.use(express.static("frontend/dist"));
 
 // router:
 app.use("/api/v1", router);
 
 // Frontend Tagging:
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
 
 // Exports app
 module.exports = app;

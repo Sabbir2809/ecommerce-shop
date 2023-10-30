@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Button from "../../components/Button";
 import {
   CREATE_CART_LIST_API_REQUEST,
   CREATE_WISH_LIST_API_REQUEST,
@@ -14,6 +15,8 @@ import SimilarProduct from "./SimilarProduct";
 const ProductDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [cartBtnLoader, setCartBtnLoader] = useState(false);
+  const [wishBtnLoader, setWishBtnLoader] = useState(false);
 
   const [size, setSize] = useState([]);
   const [color, setColor] = useState([]);
@@ -49,7 +52,9 @@ const ProductDetails = () => {
 
   // Add to wish
   const handleAddToWish = async () => {
+    setWishBtnLoader(true);
     const response = await CREATE_WISH_LIST_API_REQUEST(id);
+    setWishBtnLoader(false);
     if (response.status) {
       SuccessToast(response.message);
     } else {
@@ -65,7 +70,9 @@ const ProductDetails = () => {
     } else if (dataAddToCart.size.length === 0) {
       ErrorToast("Size is Required");
     } else {
+      setCartBtnLoader(true);
       const response = await CREATE_CART_LIST_API_REQUEST(dataAddToCart);
+      setCartBtnLoader(false);
       if (response.status) {
         SuccessToast(response.message);
       } else {
@@ -166,14 +173,20 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="col-4  p-2">
-                <button onClick={handleAddToCart} className="btn w-100 btn-success">
-                  Add to Cart
-                </button>
+                <Button
+                  onClick={handleAddToCart}
+                  isSubmit={cartBtnLoader}
+                  text="Add to Cart"
+                  className="btn btn-success w-100"
+                />
               </div>
               <div className="col-4  p-2">
-                <button onClick={handleAddToWish} className="btn w-100 btn-success">
-                  Add to Wish
-                </button>
+                <Button
+                  onClick={handleAddToWish}
+                  isSubmit={wishBtnLoader}
+                  text="Add to Wish"
+                  className="btn btn-success w-100"
+                />
               </div>
             </div>
           </div>

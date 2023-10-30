@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 import { USER_LOGIN_API_REQUEST } from "../../services/API_REQUEST";
-import { ErrorToast, IsEmpty, SuccessToast } from "../../utility/FormHelper";
+import { ErrorToast, IsEmail, SuccessToast } from "../../utility/FormHelper";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [btnLoader, setBtnLoader] = useState(false);
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    if (IsEmpty(email)) {
+    if (IsEmail(email)) {
       ErrorToast("Email is Required");
     } else {
+      setBtnLoader(true);
       const response = await USER_LOGIN_API_REQUEST(email);
-      console.log(response);
+      setBtnLoader(false);
       if (response.status === true) {
         SuccessToast(response.message);
         navigate(`/verify/${email}`);
@@ -38,9 +41,12 @@ const LoginPage = () => {
                   placeholder="Email Address"
                   className="form-control my-4"
                 />
-                <button onClick={handleLogin} className="btn btn-success w-100">
-                  Next
-                </button>
+                <Button
+                  onClick={handleLogin}
+                  isSubmit={btnLoader}
+                  text="Next"
+                  className="btn btn-success w-100"
+                />
               </form>
             </div>
           </div>

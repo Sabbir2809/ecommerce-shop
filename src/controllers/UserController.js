@@ -19,6 +19,12 @@ exports.loginVerify = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
+    const cookieOption = {
+      expires: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      httpOnly: false,
+    };
+    res.cookie("token", "", cookieOption);
+
     res.status(200).json({
       success: true,
       message: "Logout Successful",

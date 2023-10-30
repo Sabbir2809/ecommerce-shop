@@ -12,11 +12,11 @@ class FormHelper {
 
   // Success Toast
   SuccessToast(msg) {
-    toast.success(msg, { position: "top-center" });
+    toast.success(msg, { position: "center" });
   }
   // Error Toast
   ErrorToast(msg) {
-    toast.error(msg, { position: "top-center" });
+    toast.error(msg, { position: "center" });
   }
 
   // Base64 Encode and Decode
