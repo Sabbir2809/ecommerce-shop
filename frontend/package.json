@@ -16,6 +16,7 @@
     "html-react-parser": "^4.2.2",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
     "react-code-input": "^3.10.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",

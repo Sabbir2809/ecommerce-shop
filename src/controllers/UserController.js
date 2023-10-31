@@ -10,7 +10,11 @@ exports.login = async (req, res) => {
 exports.loginVerify = async (req, res) => {
   const result = await userVerify(req);
   if (result.status) {
-    res.cookie("token", result.token); // for web cookie
+    const cookieOption = {
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      httpOnly: false,
+    };
+    res.cookie("token", result.token, cookieOption); // for web cookie
     return res.status(200).json(result); // for other's application
   } else {
     res.status(200).json(result);

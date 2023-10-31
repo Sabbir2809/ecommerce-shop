@@ -44,7 +44,7 @@ router.post("/remove-wish-item", authVerifyMiddleware, ProductController.removeW
 // API Endpoints: Cart
 router.get("/cart-list", authVerifyMiddleware, ProductController.cartList);
 router.post("/create-cart-item", authVerifyMiddleware, ProductController.createCartItem);
-router.delete("/remove-cart-item", authVerifyMiddleware, ProductController.removeCartItem);
+router.post("/remove-cart-item", authVerifyMiddleware, ProductController.removeCartItem);
 
 // API Endpoints: Invoice
 router.get("/invoice-create", authVerifyMiddleware, InvoiceController.invoiceCreate);

@@ -80,8 +80,6 @@ exports.Cart = async (req) => {
     // projection
     const project = {
       $project: {
-        product_id: 0,
-        user_id: 0,
         createdAt: 0,
         updatedAt: 0,
         "product._id": 0,

@@ -44,12 +44,14 @@ const Navbar = () => {
                   />
                 </svg>
               </button>
-              <button type="button" className="btn ms-3 btn-outline-success position-relative">
-                <i className="bi bi-bag"></i>
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                  02
-                </span>
-              </button>
+              <Link to="/cart">
+                <button type="button" className="btn ms-3 btn-outline-success position-relative">
+                  <i className="bi bi-bag"></i>
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                    02
+                  </span>
+                </button>
+              </Link>
               <Link to="/wish">
                 <button type="button" className="btn ms-3 btn-dark d-flex">
                   <i className="bi bi-heart"></i>

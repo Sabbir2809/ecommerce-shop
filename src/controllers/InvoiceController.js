@@ -25,19 +25,19 @@ exports.invoiceProductList = async (req, res) => {
 // :::::: Payment Success ::::::
 exports.paymentSuccess = async (req, res) => {
   const result = await paymentSuccessService(req);
-  res.status(200).json(result);
+  return res.redirect("localhost:5173/profile");
 };
 
 // :::::: Payment Cancel ::::::
 exports.paymentCancel = async (req, res) => {
   const result = await paymentCancelService(req);
-  res.status(200).json(result);
+  return res.redirect("localhost:5173/profile");
 };
 
 // :::::: Payment Fail ::::::
 exports.paymentFail = async (req, res) => {
   const result = await paymentFailService(req);
-  res.status(200).json(result);
+  return res.redirect("localhost:5173/profile");
 };
 
 // :::::: Payment IPN ::::::

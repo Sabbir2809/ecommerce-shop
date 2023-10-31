@@ -34,7 +34,9 @@ const SimilarProduct = () => {
               }
               return (
                 <div key={item._id} className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
-                  <Link to={`/`} className="card shadow-sm h-100 rounded-3 bg-white">
+                  <Link
+                    to={`/product-details/${item._id}`}
+                    className="card shadow-sm h-100 rounded-3 bg-white">
                     <img className="img-fluid h-50 rounded-top-2" src={item["image"]} />
                     <div className="card-body">
                       <p className="bodySmal text-secondary my-1">{item["title"]}</p>

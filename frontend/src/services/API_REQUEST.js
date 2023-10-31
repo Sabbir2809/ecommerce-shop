@@ -132,7 +132,19 @@ export const CART_LIST_API_REQUEST = async () => {
 export const REMOVE_CART_LIST_API_REQUEST = async (id) => {
   try {
     const reqBody = { product_id: id };
-    const data = await axios.delete(`${BASE_URL}/api/v1/remove-cart-item`, reqBody);
+    const data = await axios.post(`${BASE_URL}/api/v1/remove-cart-item`, reqBody);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    Unauthorized(error.response.status);
+  }
+};
+
+// ::::::::: API: Create Invoice :::::::::
+export const CREATE_INVOICE_API_REQUEST = async () => {
+  try {
+    const data = await axios.get(`${BASE_URL}/api/v1/invoice-create`);
     if (data.status) {
       return data.data;
     }

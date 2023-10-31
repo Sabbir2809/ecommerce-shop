@@ -46,12 +46,12 @@ const WishPage = () => {
               return (
                 <div key={i} className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
                   <div className="card shadow-sm h-100 rounded-3 bg-white">
-                    <Link to={"/product-details/" + item["_id"]}>
+                    <Link to={`/product-details/${item.product_id}`}>
                       <img className="w-100 rounded-top-2" src={item["product"]["image"]} />
                     </Link>
                     <div className="card-body">
-                      <Link to={"/product-details/" + item["_id"]}>
-                        <p className="bodySmal text-secondary my-1">{item["product"]["title"]}</p>
+                      <Link to={`/product-details/${item.product_id}`}>
+                        <p className="bodySmal text-secondary my-1">{item.product.title}</p>
                         {price}
                       </Link>
                       <Button
