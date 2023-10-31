@@ -152,3 +152,51 @@ export const CREATE_INVOICE_API_REQUEST = async () => {
     Unauthorized(error.response.status);
   }
 };
+
+// ::::::::: API: List By Brand :::::::::
+export const LIST_BY_BRAND_API_REQUEST = async (brand) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/list-by-brand/${brand}`);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    return [];
+  }
+};
+
+// ::::::::: API: List By Category :::::::::
+export const LIST_BY_CATEGORY_API_REQUEST = async (category) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/list-by-category/${category}`);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    return [];
+  }
+};
+
+// ::::::::: API: List By Category :::::::::
+export const SEARCH_BY_KEYWORD_API_REQUEST = async (keyword) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/search-by-keyword/${keyword}`);
+    if (data.status) {
+      return data.data;
+    }
+  } catch (error) {
+    return [];
+  }
+};
+
+// ::::::::: API: Logout :::::::::
+export const USER_LOGOUT_API_REQUEST = async () => {
+  try {
+    const data = await axios.get(`${BASE_URL}/api/v1/logout`);
+    if (data.status) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+};

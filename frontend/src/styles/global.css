@@ -130,7 +130,7 @@ body {
 }
 
 .hero-bg {
-  background: url("../images/hero-bg.svg");
+  background: url("./../assets/images/hero-bg.svg");
   background-size: cover;
 }
 

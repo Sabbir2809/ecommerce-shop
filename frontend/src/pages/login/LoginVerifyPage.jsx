@@ -21,7 +21,12 @@ const LoginVerifyPage = () => {
       setBtnLoader(false);
       if (response.status === true) {
         SuccessToast(response.message);
-        window.location.href = sessionStorage.getItem("last-location");
+        localStorage.setItem("login", "1");
+        if (sessionStorage.getItem("last-location") !== null) {
+          window.location.href = sessionStorage.getItem("last-location");
+        } else {
+          window.location.href = "/";
+        }
       } else {
         ErrorToast(response.error);
       }

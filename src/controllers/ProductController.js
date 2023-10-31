@@ -5,7 +5,6 @@ const {
   productByBrand,
   productBySlider,
   productByKeyword,
-  productBySmiler,
   detailsById,
 } = require("../services/ProductService");
 const { createWish, removeWish, wish } = require("../services/WishService");
@@ -40,8 +39,8 @@ exports.listByRemark = async (req, res) => {
 //   res.status(200).json(result);
 // };
 
-// :::::: list by keyword ::::::
-exports.listByKeyword = async (req, res) => {
+// :::::: search by keyword ::::::
+exports.searchByKeyword = async (req, res) => {
   const result = await productByKeyword(req);
   res.status(200).json(result);
 };

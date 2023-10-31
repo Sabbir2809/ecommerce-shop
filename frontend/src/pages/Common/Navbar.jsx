@@ -1,7 +1,32 @@
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
+import { USER_LOGOUT_API_REQUEST } from "../../services/API_REQUEST";
+import { ErrorToast, IsEmpty } from "../../utility/FormHelper";
 import logo from "./../../assets/images/plainb-logo.svg";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+  const [btnLoader, setBtnLoader] = useState(false);
+
+  const handleSearch = () => {
+    if (IsEmpty(keyword)) {
+      ErrorToast("Product Keyword is Required!");
+    } else {
+      navigate(`/search-by-keyword/${keyword}`);
+    }
+  };
+
+  const handleLogout = async () => {
+    setBtnLoader(true);
+    await USER_LOGOUT_API_REQUEST();
+    setBtnLoader(false);
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
     <nav className="navbar shadow-sm sticky-top bg-white navbar-expand-lg navbar-light py-3">
       <div className="container">
@@ -21,15 +46,21 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="nav06">
           <ul className="navbar-nav mt-3 mt-lg-0 mb-3 mb-lg-0 ms-lg-3">
             <li className="nav-item me-4">
-              <NavLink to="/login" className="nav-link">
-                Login
+              <NavLink to="/" className="nav-link">
+                Home
               </NavLink>
             </li>
           </ul>
           <div className="d-lg-flex ms-auto" action="">
             <div className="input-group">
-              <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-dark" type="submit">
+              <input
+                onChange={(event) => setKeyword(event.target.value)}
+                className="form-control"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button onClick={handleSearch} className="btn btn-outline-dark" type="submit">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -57,9 +88,23 @@ const Navbar = () => {
                   <i className="bi bi-heart"></i>
                 </button>
               </Link>
-              <button type="button" className="btn ms-3 btn-success d-flex">
-                <i className="bi mx-1 bi-person"></i> Account
-              </button>
+              {localStorage.getItem("login") === "1" ? (
+                <>
+                  <Link to="/profile" type="button" className="btn ms-3 btn-success d-flex">
+                    Account
+                  </Link>
+                  <Button
+                    onClick={handleLogout}
+                    isSubmit={btnLoader}
+                    text="Logout"
+                    className="btn ms-3 btn-danger d-flex"
+                  />
+                </>
+              ) : (
+                <Link to="/login" type="button" className="btn ms-3 btn-success d-flex">
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

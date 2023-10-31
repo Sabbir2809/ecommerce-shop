@@ -22,14 +22,14 @@ router.get("/list-by-category/:category_id", ProductController.listByCategory);
 router.get("/list-by-slider", ProductController.listBySlider);
 router.get("/list-by-remark/:remark", ProductController.listByRemark);
 // router.get("/list-by-smiler/:category_id", ProductController.listBySmiler);
-router.get("/list-by-keyword/:keyword", ProductController.listByKeyword);
+router.get("/search-by-keyword/:keyword", ProductController.searchByKeyword);
 router.get("/product-details/:product_id", ProductController.productDetailsById);
 router.get("/product-review", ProductController.productReview); // Todo
 
 // API Endpoints: User
 router.get("/user-login/:email", UserController.login);
 router.get("/user-login-verify/:email/:otp", UserController.loginVerify);
-router.get("/logout", UserController.logout); // Todo
+router.get("/logout", authVerifyMiddleware, UserController.logout);
 
 // API Endpoints: profile
 router.post("/create-profile", authVerifyMiddleware, ProfileController.createProfile);

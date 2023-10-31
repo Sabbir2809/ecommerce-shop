@@ -176,7 +176,7 @@ exports.productByKeyword = async (req) => {
       projectionStage,
     ]);
 
-    return { status: true, message: "Remark Product", data: data };
+    return { status: true, message: "Search Product", data: data };
   } catch (error) {
     return { status: false, error: error.message };
   }
