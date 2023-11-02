@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
-import { USER_LOGOUT_API_REQUEST } from "../../services/API_REQUEST";
+import { CART_LIST_API_REQUEST, USER_LOGOUT_API_REQUEST } from "../../services/API_REQUEST";
 import { ErrorToast, IsEmpty } from "../../utility/FormHelper";
 import logo from "./../../assets/images/plainb-logo.svg";
 
@@ -9,6 +9,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const [btnLoader, setBtnLoader] = useState(false);
+  const [cartData, setCartData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await CART_LIST_API_REQUEST();
+      setCartData(data);
+    })();
+  }, []);
 
   const handleSearch = () => {
     if (IsEmpty(keyword)) {
@@ -79,7 +87,7 @@ const Navbar = () => {
                 <button type="button" className="btn ms-3 btn-outline-success position-relative">
                   <i className="bi bi-bag"></i>
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                    02
+                    {cartData?.length}
                   </span>
                 </button>
               </Link>

@@ -1,4 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NotFound from "./components/NotFound";
+import PaymentFail from "./components/PaymentFail";
+import PaymentSuccess from "./components/PaymentSuccess";
 import MainLayout from "./layout/MainLayout";
 import CartPage from "./pages/Cart/CartPage";
 import DetailsPage from "./pages/Details/DetailsPage";
@@ -24,6 +27,10 @@ const App = () => {
           <Route path="/product-by-brand/:brand" element={<ListByBrand />} />
           <Route path="/product-by-category/:category" element={<ListByCategory />} />
           <Route path="/search-by-keyword/:keyword" element={<SearchByKeyword />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-fail" element={<PaymentFail />} />
+          <Route path="/payment-cancel" element={<PaymentFail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>
     </BrowserRouter>

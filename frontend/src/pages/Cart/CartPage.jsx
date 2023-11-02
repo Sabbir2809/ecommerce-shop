@@ -120,9 +120,9 @@ const CartPage = () => {
         <Modal.Body>
           <div className="container">
             <div className="row">
-              {paymentData?.map((item, i) => {
+              {paymentData?.map((item) => {
                 return (
-                  <div key={i} className="col-md-2 col-lg-2 p-1 col-sm-6 col-6">
+                  <div key={item._id} className="col-md-2 col-lg-2 p-1 col-sm-6 col-6">
                     <a target="_blank" href={item["redirectGatewayURL"]} rel="noreferrer">
                       <img className="pay-img w-100" src={item["logo"]} />
                     </a>

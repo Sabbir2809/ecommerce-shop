@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
-import ProductsSkeleton from "../../components/loader/ProductsSkeleton";
 import { REMOVE_WISH_LIST_API_REQUEST, WISH_LIST_API_REQUEST } from "../../services/API_REQUEST";
 import { ErrorToast, SuccessToast } from "../../utility/FormHelper";
 
@@ -29,7 +28,12 @@ const WishPage = () => {
   return (
     <>
       {data.length === 0 ? (
-        <ProductsSkeleton />
+        <>
+          <h2 className="headline-4 text-center mt-4">
+            Create Wish List
+            <Link to="/"> Click</Link>
+          </h2>
+        </>
       ) : (
         <div className="container">
           <div className="row">
